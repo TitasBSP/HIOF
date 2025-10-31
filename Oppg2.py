@@ -2,14 +2,15 @@ import random as rand
 import time
 import os
 
-inSession = True
+inSession = False
 stand = False
 balance = 100
 prizePool = 0
 playerCards = []
-dealersCards = []
+dealerCards = []
 playerHandValue = 0
 dealerHandValue = 0
+aceCounter = 0
 
 suits = ["♠", "♥", "♦", "♣"]
 cardValues = {}
@@ -29,36 +30,80 @@ for suit in suits:
     cardValues[f"K{suit}"] = 10
     cardValues[f"A{suit}"] = 11
 
-def checkImmediateWin(hand1, hand2):
+def checkWin(hand1, hand2):
+    os.system('clear')
     global prizePool
+    global balance
+    global playerCards
+    global dealerCards
+    global playerHandValue
+    global dealerHandValue
 
     if ((hand1 == 21) and (hand2 == 21)) or (hand1 == hand2) and (hand1 > 0):
         print("Equal hand value! Nobody wins :(")
+        balance += prizePool/2
         playAgain()
 
-    elif hand1 == 21:
+    elif hand1 > hand2:
+        print(f"Your hand; {getHandValue(playerCards, playerHandValue)} was greater than dealer's hand with a value of {getHandValue(dealerCards, dealerHandValue)}")
+        balance += prizePool
+        playAgain()
+
+def checkBlackjack(hand1, hand2):
+    os.system('clear')
+    global balance
+    global prizePool
+
+    if hand1 == 21:
         print(f"Blackjack, you won!")
         balance += 2*prizePool
         playAgain()
 
     elif hand2 == 21:
         print(f"BLACKJACK, the dealer won?!")
-        prizePool = 0
         playAgain()
 
-    if hand1 > hand2:
-        print(f"Your hand; {getHandValue(playerHandValue)} was greater than dealer's hand with a value of {getHandValue(dealerHandValue)}")
+
+def checkBust(yourHand, theirHand):
+    os.system('clear')
+    global balance
+    global prizePool
+    
+    if (yourHand > 21) and (theirHand > 21):
+        print(f"Gentlemen, you have both busted! Better luck next time :)")
         playAgain()
-        
+
+    elif yourHand > 21:
+        print(f"Sorry bucko, you busted!")
+        playAgain()
+
+    elif theirHand > 21:
+        print(f"Lucky for you.. the dealer busted!")
+        balance += prizePool
+        playAgain()
+    
 
 def playAgain():
     global inSession
+    global bet
+    global stand
+    global balance
+    global prizePool
+    global playerCards      
+    global dealerCards
+    global aceCounter
+
     inLoop = True
     inSession = False
     
     while inLoop:
         choice = input("Play again? (Y/N): ")
         if choice.lower() == "y":
+            bet = 0
+            prizePool = 0
+            aceCounter = 0
+            inLoop = False
+            stand = False
             inSession = True
             break
         elif choice.lower() == "n":
@@ -71,55 +116,103 @@ def playAgain():
 def shuffleCards(cards):
     cardArr = list(cardValues.keys())
     rand.shuffle(cardArr)
+    playerCards.clear()
+    dealerCards.clear()
 
     for i in range(2):
         playerCards.append(cardArr.pop())
-        dealersCards.append(cardArr.pop())
+        dealerCards.append(cardArr.pop())
 
-    return cardArr, playerCards, dealersCards 
+    return cardArr, playerCards, dealerCards 
 
 def getHandValue(arr, handValue):
     global playerHandValue
     global dealerHandValue
+    global aceCounter
 
     for i in range(len(arr)):
+        if "A" in arr[i]:
+            aceCounter += 1
+
+        if aceCounter > 1:
+            handValue -= 10
+            aceCounter -= 1
+        
         handValue += cardValues[arr[i]]
+
+    aceCounter = 0
 
     return handValue
 
 def session(bet, cardArr):
     global stand
+    global balance
+    global prizePool
+    global playerCards      
+    global dealerCards
+    global playerHandValue 
+    global dealerHandValue
+    global inSession
 
-    while not stand:
+    stand = False
+
+    yourHand = getHandValue(playerCards, playerHandValue)
+    theirHand = getHandValue(dealerCards, dealerHandValue)
+
+    checkBlackjack(yourHand, theirHand)
+    if not inSession:
+        return
+
+    while stand == False and inSession:
+
+        yourHand = getHandValue(playerCards, playerHandValue)
+        theirHand = getHandValue(dealerCards, dealerHandValue)
+
+        oldSession = inSession
+        checkBust(yourHand, theirHand)
+        if oldSession != inSession:
+            return
+
         os.system('clear')
-        print(f"Dealer's Card: [{dealersCards[0]}]")
-        print(f"Your cards: {playerCards}\nYour hand value: {getHandValue(playerCards, playerHandValue)}")
+        print(f"Dealer's Card: [{dealerCards[0]}]")
+        print(f"Your cards: {playerCards}\nYour hand value: {yourHand}")
         initChoice = input(f"\n(1) - Hit, (2) - Stand -: ")
-
-        if initChoice != 1 or initChoice != 2:
-            print(f"\nInvalid input, please follow the shown choices.")
-            time.sleep(2)
-        elif initChoice == 1:
+            
+        if initChoice == '1':
             playerCards.append(cardArr.pop())
-            dealersCards.append(cardArr.pop())
+            dealerCards.append(cardArr.pop())
 
-            print(f"\nYou chose to Hit!")
-            time.sleep(1)
             yourHand = getHandValue(playerCards, playerHandValue)
             theirHand = getHandValue(dealerCards, dealerHandValue)
 
-            if yourHand > 21:
-                print(f"Sorry bucko, you busted!")
-            elif theirHand > 21:
-                print(f"Lucky for you.. the dealer busted!")
-                balance += prizePool
-                prizePool = 0
+            print(f"\nYou chose to Hit!")
 
-        elif initChoice == 2:
+            time.sleep(1)
+
+        elif initChoice == '2':
             stand = True
+            oldSession = inSession
+            checkBust(yourHand, theirHand)
+            if oldSession != inSession:
+                return
+            checkBlackjack(yourHand, theirHand)
+            if oldSession != inSession:
+                return
+            checkWin(yourHand, theirHand)
+            return
 
+        else:
+            print(f"\nInvalid input, please follow the shown choices.")
+            time.sleep(2)
 
-cards, playerCards, dealerCards = shuffleCards(cardValues)
+instruct = input("Would you like to get a briefing of the rules? (Y/N): ")
+
+if instruct.lower() == 'y':
+    print(f"What you need to know:\n- Each card is worth itself, except J,Q and K which are worth 10, and A being worth 1 or 11 depending on what's advantageous for your hand\n- If you or the dealer hit a Blackjack, i.e. a hand that is worth 21, the hand holder wins, or nobody depending if you both hold the same value.\n- You can choose to either hit (get a new card), or stand (show off your card value and determine the winner that way).\n- If a player has a hand over the value of 21, they bust, as in they lose the game and their bet :(\n- You start with 100 chips, do your best and maybe get a HIGH SCORE!")
+    yn = input("\nType anything to continue: ")
+    inSession = True
+elif instruct.lower() == 'n':
+    inSession = True
 
 while inSession:
     os.system('clear')
@@ -135,10 +228,10 @@ while inSession:
     else:
         balance -= bet
         prizePool += bet*2
-        checkImmediateWin(playerHandValue, dealerHandValue)
+        cards, playerCards, dealerCards = shuffleCards(cardValues)
         session(bet, cards)
 
 ## TO-DO:
 '''
-Figure out how to search multiple aces in a hand, decrease score by 10 when there are 2 and more aces.
+Fix the fucking loops, sometimes goes back correctly
 '''
