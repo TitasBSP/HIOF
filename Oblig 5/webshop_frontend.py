@@ -1,5 +1,6 @@
 import webshop as ws
-from wallet import Wallet
+from wallet import wallet
+
 all_wares = {
     "amd_processor": {
     "name": "AMD Ryzen 9 5900X Processor",
@@ -30,13 +31,13 @@ for ware in all_wares_in_stock.values():
     ws.print_ware_information(ware)
     
 # Skriv ut den gjennomsnittlige ratingen for denne varen
-print(f"Average rating for the AMD Processor:{ws.calculate_average_ware_rating(all_wares['amd_processor'])}")
+print(f"Average rating for the AMD Processor: {ws.calculate_average_ware_rating(all_wares['amd_processor'])}")
 print()
 
 # Oppretter en tom handlevogn
 shopping_cart = {}
 
-# Forsøker å legge til 1 amd processor, 2 playstation 5 konsoller og 3 hdmi kabler
+# Forsøker å legge til 1 amd processor, 2 playstation 5 konsoller og 4 hdmi kabler
 ws.add_number_of_ware_to_shopping_cart("amd_processor",
 all_wares["amd_processor"], shopping_cart)
 ws.add_number_of_ware_to_shopping_cart ("playstation_5",
@@ -49,12 +50,8 @@ print()
 print(f"The shopping cart: {shopping_cart}")
 print()
 
-# Oppretter en lommebok som inneholder 10000 kr
-wallet = Wallet(10000)
-
 # Forsøker å kjøpe varene i handlevognen
-ws.buy_shopping_cart('''Parameterne blir definert i oppgaven''')
-print()
+ws.buy_shopping_cart(shopping_cart, all_wares["amd_processor"], 1.25, wallet.get_amount(), 15, True)
 
 # Skriver ut mengden penger i lommeboka etter kjøpet
 print(f"The amount in the wallet after the purchase: {wallet.get_amount()}")

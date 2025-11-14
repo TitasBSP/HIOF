@@ -1,3 +1,4 @@
+
 class Wallet:
     def __init__(self, amount):
         self.amount = amount
@@ -6,3 +7,4 @@ class Wallet:
     def subtract_amount(self, value):
         self.amount -= value
 
+wallet = Wallet(10000)
