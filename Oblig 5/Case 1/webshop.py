@@ -89,45 +89,43 @@ def add_number_of_ware_to_shopping_cart(ware_key, ware, shopping_cart, number_of
 
 # Oppg6
 def calculate_shopping_cart_price(shopping_cart, all_wares, tax):
-    items = list(all_wares)
     price = 0
-    for i in range(len(all_wares)):
-        price += all_wares[items[i]]["price"]
-        priceAfterTax = price * tax
-        
-    return int(priceAfterTax)
+    for ware_key, quantity in shopping_cart.items():
+        price += all_wares[ware_key]["price"] * quantity
+    price_after_tax = price * tax
+    return price_after_tax
 
 # Oppg7
 def can_afford_shopping_cart(shopping_cart_price, wallet):
-    if shopping_cart_price > wallet:
-        return False
-    else:
-        return True
+    return shopping_cart_price <= wallet.get_amount()
     
 # Oppg8
-def buy_shopping_cart(shopping_cart, ware, tax, wallet, item_amount, pay):
-    cartItems = list(shopping_cart)
-    inStock = is_ware_in_stock(ware)
-    if inStock == True:
-        actual_added = add_number_of_ware_to_shopping_cart(str(ware), ware, shopping_cart, item_amount)
+def buy_shopping_cart(shopping_cart, ware_key, tax, wallet, item_amount, pay):
+    global all_wares
+    ware = all_wares[ware_key]
+
+    if is_ware_in_stock(ware):
+        actual_added = add_number_of_ware_to_shopping_cart(ware_key, ware, shopping_cart, item_amount)
+
         ware["number_in_stock"] -= actual_added
+
         shopping_cart_price = calculate_shopping_cart_price(shopping_cart, all_wares, tax)
-        
-        if (pay == True) and (can_afford_shopping_cart(shopping_cart_price, wallet) == True):
-            wallet.subtract_amount(shopping_cart_price)
-            print("Transaction complete, item in cart are bought and the cart is empty now.")
-            shopping_cart.clear()
-            
-        elif pay == False:
-            print("The transaction declined by request")
-            
-        elif can_afford_shopping_cart(shopping_cart_price, wallet) == True:
-            print("Insufficient funds for the current purchase")
-            
-    elif (ware in cartItems) and (inStock == False):
+
+        if pay:
+            if can_afford_shopping_cart(shopping_cart_price, wallet):
+                wallet.subtract_amount(shopping_cart_price)
+                print("Transaction complete, item(s) in cart are bought and the cart is empty now.")
+                shopping_cart.clear()
+            else:
+                print("Insufficient funds for the current purchase")
+
+        else:
+            print("The transaction declined by request")  
+
+    elif ware_key in shopping_cart:
         print("Cannot add more of this item as there is not more of this item in stock.")
-        
+
     else:
-        shopping_cart.pop(ware)
+        shopping_cart.pop(ware_key, None)
     
 # Fix task 6

@@ -51,7 +51,7 @@ print(f"The shopping cart: {shopping_cart}")
 print()
 
 # Forsøker å kjøpe varene i handlevognen
-ws.buy_shopping_cart(shopping_cart, all_wares["amd_processor"], 1.25, wallet.get_amount(), 15, True)
+ws.buy_shopping_cart(shopping_cart, "amd_processor", 1.25, wallet, 1, True)
 
 # Skriver ut mengden penger i lommeboka etter kjøpet
 print(f"The amount in the wallet after the purchase: {wallet.get_amount()}")

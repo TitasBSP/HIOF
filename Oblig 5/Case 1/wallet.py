@@ -7,4 +7,4 @@ class Wallet:
     def subtract_amount(self, value):
         self.amount -= value
 
-wallet = Wallet(10000)
+wallet = Wallet(50000)
