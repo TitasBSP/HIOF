@@ -30,19 +30,20 @@ car_register = {
     },
 }
 
+TOTAL_PRICE_FEE = 10783
 RENT_CAR_PERCENTAGE = 0.4
 RENT_NEW_CAR__FEE = 1000
 
 # Oppg1
 def print_car_information(car):
-    if is_new(car) == True:
+    if is_new(car) == True: # Sant gir brand new, ellers used.
         print(f"Brand: {car['brand']}, \nModel: {car['model']} \nPrice: {car['price']},- \nManufactured: {car['year']}-{car['month']} \nCondition: Brand New")
     else:
         print(f"Brand: {car['brand']}, \nModel: {car['model']} \nPrice: {car['price']},- \nManufactured: {car['year']}-{car['month']} \nCondition: Used")
 
 # Oppg2
 def create_car(car_register, brand, model, price, year, month, new, km):
-    car_register = {}
+    car_register = {} # Oppretter, dictionary, forsøkte å legge alt i en linje, men tydeligvis ville ikke update-funksjonen akseptere mer enn en argument.
     car_register.update({'brand': brand})
     car_register.update({"model": model})
     car_register.update({"price": price})
@@ -54,21 +55,21 @@ def create_car(car_register, brand, model, price, year, month, new, km):
     return car_register
 
 # Oppg3
-def get_car_age(car):
+def get_car_age(car): # Henter dagens dato, tar delta av nåværende år og bilens produksjonsår
     today = date.today()
     age = today.year - car["year"]
 
     return age
 
 # Oppg4
-def rent_car_monthly_price(car):
+def rent_car_monthly_price(car): # Basisprisen er bilenspris ganger med 0.4 for å få 40%, også delen man det over 12 måneder. 
     baseMonthlyPrice = (car["price"] * RENT_CAR_PERCENTAGE) / 12
-    newCarMonthlyPrice = baseMonthlyPrice + RENT_NEW_CAR__FEE
+    newCarMonthlyPrice = baseMonthlyPrice + RENT_NEW_CAR__FEE # Avgiften som skulle legges til uansett hva
     
     return round(newCarMonthlyPrice, 2)
     
 # Oppg5
-def next_eu_control(car):
+def next_eu_control(car): # Henter produksjonsår og måned, øker produksjonsåret helt til forskjellen mellom de er 1 år (måneder ekskl. fordi 2 år hadde latt det være 2år1mnd. osv.)
     manufactureYear = car["year"]
     manufactureMonth = car["month"]
     
@@ -76,18 +77,21 @@ def next_eu_control(car):
     while (today.year - manufactureYear) > 1:
         manufactureYear += 2
         
-    manufactureDate = date(manufactureYear, manufactureMonth, 1)
-    nextTime = today - manufactureDate
+    manufactureDate = date(manufactureYear, manufactureMonth, 1) 
+    nextTime = today - manufactureDate # Neste eu-kontroll regnes basert på deltaen mellom dagens dato og den nye produksjonsdato.
     
     return nextTime
 
 # Oppg6
-def calculate_total_price(car):
+def calculate_total_price(car): # Basert på deltaen mellom nåværende år og produksjonsår vil avgiften beregnes.
     today = date.today()
     deltaAge = today.year - car["year"]
     totalPrice = car["price"]
     
     if car["new"] == True:
+        totalprice += TOTAL_PRICE_FEE
+        
+    elif car["new"] == False:
         if deltaAge <= 3:
             totalPrice += 6681
         elif 4 >= deltaAge <= 11:
@@ -97,7 +101,7 @@ def calculate_total_price(car):
             
     return totalPrice
 
-# Oppg7
+# Oppg7, slik jeg forsto oppgaven skulle jeg lage klasse, og metoder uten å legge logikken inn (?)
 class Car:
     def __init__(self, brand, model, price, year, month, new, km):
         self.brand = brand
@@ -108,9 +112,18 @@ class Car:
         self.new = new
         self.km = km
         
-    def createCar(self): # maybe
-        ...
-     
+    def eu_control(self):
+        pass
+        # Bruker ikke selve modellen som nøkkel, dermed er det lettvint og lettere å forstå når det er lagt til som metode
+    
+    def car_age(self):
+        pass
+        # Samme gjelder for denne, og det blir mer forståelig med self.month enn car["month"] siden man vet hvilken klasse man referer til.
+        
+    def print_info(self):
+        pass
+        # Litt mindre karakterer, bedre formatert = bedre kode!   
+          
 
 def is_new(car):
     return car['new']
