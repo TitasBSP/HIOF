@@ -1,3 +1,5 @@
+import json
+
 cantChangeThis = ("you", "can't", "touch", "this") # Can't change this tuple
 
 def useThisList(tuple):
@@ -25,3 +27,15 @@ class Fetus(Human):
 xD = Fetus(age=0)
 
 xD.sayAge() 
+
+newDict = {"crazy": "frog", "shrek": 3}
+
+print(newDict["shrek"])
+
+with open("shrek.txt", "a") as f:
+    f.write(newDict["crazy"])
+    
+y = newDict["shrek"]
+z = json.dumps(y)
+
+print(y)
