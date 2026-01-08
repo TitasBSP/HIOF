@@ -1,4 +1,5 @@
 import java.util.Scanner; 
+import java.util.Arrays;
 
 public class Oppg2_3 {
     public static void main(String[] args) {
@@ -49,7 +50,12 @@ public class Oppg2_3 {
 
                 case "2":
                     System.out.println("Listen med eksisterende planeter:");
-                    System.out.println(planets);
+                    if (planets[0] == null) {
+                        System.out.println("Denne listen er tom.");
+                        System.out.println(planets[0]);
+                    } else {
+                        System.out.println(Arrays.toString(planets));
+                    }
 
                     break;
                 case "3":
