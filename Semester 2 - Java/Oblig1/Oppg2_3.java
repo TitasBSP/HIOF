@@ -1,5 +1,4 @@
-import java.util.Scanner; 
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Oppg2_3 {
     public static void main(String[] args) {
@@ -9,8 +8,11 @@ public class Oppg2_3 {
         Planet mercury = new Planet("Mercury", 2440, 3.3E23 );
 
         Planet[] planets;
+        String[] planetNames;
+
         int i = 0;
         planets = new Planet[42]; // The meaning of life is 42, one must not question it.
+        planetNames = new String[42];
 
         System.out.println("Planeten " + mars.name + " har en radius på " + mars.radius + " og en masse på " + mars.mass + " kg");
         System.out.println("Planeten " + jupiter.name + " har en radius på " + jupiter.radius + " og en masse på " + jupiter.mass + " kg");
@@ -21,10 +23,11 @@ public class Oppg2_3 {
             String choice = read.nextLine();
 
             switch(choice) {
-                case "1":
+                case "1" -> {
                     System.out.println("\nNå kan du lage din egen planet!");
                     System.out.println("Hva skal planeten hete?: ");
                     String name = read.nextLine();
+                    name = name.toLowerCase();
 
                     System.out.println("Hva er radiusen til planeten i kilometer?: ");
                     String givenRadius = read.nextLine();
@@ -35,34 +38,86 @@ public class Oppg2_3 {
                     double mass;
 
                     try {
-                        radius = Double.parseDouble(givenRadius); 
+                        radius = Double.parseDouble(givenRadius);
                         mass = Double.parseDouble(givenMass); 
                         Planet planet0 = new Planet(name, radius, mass);
                         
                         System.out.println("Planeten " + planet0.name + " har en radius på " + planet0.radius + " og en masse på " + planet0.mass + " kg");
                         System.out.println("Planeten har blitt lagt til i posisjonen: " + i);
+
+                        planets[i] = planet0;
+                        planetNames[i] = planet0.name;
+
                         i++;
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Can't convert due to an invalid number!");
                     }
+                }
 
-                    break;
-
-                case "2":
-                    System.out.println("Listen med eksisterende planeter:");
-                    if (planets[0] == null) {
+                case "2" -> {
+                    System.out.println("\nListen med eksisterende planeter:");
+                    if (planetNames[0] == null) {
                         System.out.println("Denne listen er tom.");
-                        System.out.println(planets[0]);
                     } else {
-                        System.out.println(Arrays.toString(planets));
+                        for (String planetName : planetNames) {
+                            if (planetNames[i] != null) {
+                                System.out.println(planetName);
+                            }
+                        }
                     }
+                }
 
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-                default:
+                case "3" -> {
+                    System.out.println("\nSlette en planet fra listen.");
+                    for (String planetName : planetNames) {
+                            if (planetNames[i] != null) {
+                                System.out.println(planetName);
+                            }
+                        }
+
+                    String del = read.nextLine();
+                    del = del.toLowerCase();
+
+                    for (int j = 0; j < planetNames.length; j++) {
+                        if (planetNames[j] != null && planetNames[j].equals(del)) {
+                            planetNames[j] = null;
+                            planets[j] = null;
+                            System.out.println("Planeten " + del + " har blitt slettet fra listen.");
+                            break;
+                        }
+                    }
+                }
+                case "4" -> {
+                    System.out.println("\nVelg en planet å endre:");
+                    for (String planetName : planetNames) {
+                            if (planetNames[i] != null) {
+                                System.out.println(planetName);
+                            }
+                        }
+
+                    String change = read.nextLine();
+                    change = change.toLowerCase();
+
+                    for (int j = 0; j < planetNames.length; j++) {
+                        if (planetNames[j] != null && planetNames[j].equals(change)) {
+                            System.out.println("Hva har du lyst til å endre?: ");
+                            System.out.println("\n1 - Navn, 2 - Radius, 3 - Masse");
+
+                            String changeWhat = read.nextLine();
+                            switch(changeWhat) {
+                                case "1" -> {
+                                    break;
+                                }
+                            }
+                            
+                            System.out.println("Planeten " + change + " har blitt slettet fra listen.");
+                            break;
+                        }
+                    }
+                }
+
+                default -> {
+                }
 
             }
             
