@@ -9,7 +9,7 @@ public class Oppg2_2 {
         int weight;
 
         try {
-            weight = Integer.parseInt(text);
+            weight = Integer.parseInt(text); // Konverterer input av streng til integer
             System.out.println("Your weight on the moon is around: " + (weight * 0.165) + " Kilograms."); // Kalkulerer vekten ved å ta omtrent 1/6 av input.
 
         } catch (NumberFormatException e) {
