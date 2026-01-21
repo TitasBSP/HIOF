@@ -17,7 +17,7 @@ public class TVSeries {
     public String setDescription(String description) {return this.description = description;}
     public LocalDate setReleaseDate(LocalDate releaseDate) {return this.releaseDate = releaseDate;}
 
-    public void addepisode(episode episodeName) {
+    public void addEpisode(episode episodeName) {
         episodes.add(episodeName);
     }
 
