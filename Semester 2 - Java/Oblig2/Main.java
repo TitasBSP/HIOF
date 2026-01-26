@@ -7,7 +7,7 @@ public class Main {
         episode E1S1 = new episode("Pilot", 1, 1, 58);
         episode E2S1 = new episode("Cat's in the bag", 2, 1, 48);
         
-        addEpisode(E1S1);
-        addEpisode(E2S1);
+        breakingBad.addEpisode(E1S1);
+        breakingBad.addEpisode(E2S1);
     }
 }
