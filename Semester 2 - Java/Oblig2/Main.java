@@ -1,8 +1,12 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
+        Random rand = new Random();
+        int min = 20, max = 30;
+
         TVSeries breakingBad = new TVSeries("Breaking Bad", "Walter White is cool", LocalDate.of(2008, 1, 20), new ArrayList<>());
         String[][] titles = {
             { "Pilot", "Cat's in the bag", "And the Bag's in the River", "Cancer Man", "Gray Matter", "Crazy Handful of Nothing", "A No-Rough-Stuff-Type Deal" }, // S1
@@ -14,7 +18,7 @@ public class Main {
 
         for (int season = 0; season < titles.length; season++) {  // season index 0-4
             for (int ep = 0; ep < titles[season].length; ep++) {   // episode index
-                Episode episode = new Episode(titles[season][ep], ep + 1, season + 1, 48);
+                Episode episode = new Episode(titles[season][ep], ep + 1, season + 1, rand.nextInt(max - min + 1)+min);
                 breakingBad.addEpisode(episode);
             }
         }
@@ -27,11 +31,10 @@ public class Main {
             System.out.println(e.getTitle());
         }
 
-        Episode E17S5 = new Episode(null, 0, 0, 250); 
-        // Example to show that the average is different when creating an object with a highly different runtime
-        breakingBad.addEpisode(E17S5);
+        System.out.printf("%n%.2f", breakingBad.getAverageRuntime());
 
-        System.out.println(breakingBad.getAverageRuntime());
+
+
 
     }
 }

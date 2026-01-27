@@ -8,14 +8,14 @@ public class TVSeries {
     private LocalDate releaseDate;
     private ArrayList<Episode> episodes = new ArrayList<>();
 
-    private int averageRuntime;
+    private double averageRuntime;
 
     public String getTitle() {return title;}
     public String getDescription() {return description;}
     public LocalDate getReleaseDate() {return releaseDate;}
     public ArrayList<Episode> getepisodes() {return episodes;}
 
-    public int getAverageRuntime() {return averageRuntime;}
+    public double getAverageRuntime() {return averageRuntime;}
 
     public void setTitle(String title) {this.title = title;}
     public void setDescription(String description) {this.description = description;}
@@ -29,7 +29,7 @@ public class TVSeries {
     public void listEpisodes() {
         if (episodes.isEmpty()) {
             System.out.println("This list is currently empty.");
-        }
+        } 
         for (Episode eps : episodes) {
             System.out.println(eps.getTitle());
         }
@@ -63,18 +63,23 @@ public class TVSeries {
         return epsInSeason;
     }
  
-    private int updateAverageRuntime() {
+    private double updateAverageRuntime() {
         int episodeAmount = 0;
-        int totalRuntime = 0;
+        double totalRuntime = 0;
 
-        for (Episode ep : episodes) {
-            totalRuntime += ep.getRuntime();
-            episodeAmount++;
-        } 
+        if (episodes.isEmpty()) {
+            averageRuntime = 0;
+            return averageRuntime;
 
-        averageRuntime = totalRuntime / episodeAmount;
+        } else {
+            for (Episode ep : episodes) {
+                totalRuntime += ep.getRuntime();
+                episodeAmount++;
+            } 
 
-        return averageRuntime;
+            averageRuntime = totalRuntime / episodeAmount;
+            return averageRuntime;
+        }
     }
 
 
