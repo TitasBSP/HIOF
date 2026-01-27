@@ -22,7 +22,16 @@ public class Main {
         System.out.println(breakingBad);
         breakingBad.fetchEpisode(titles[0][1]);
 
-        System.out.println(breakingBad.getEpisodesInSeason(4));
+        ArrayList<Episode> season4 = breakingBad.getEpisodesInSeason(4); 
+        for (Episode e : season4) {
+            System.out.println(e.getTitle());
+        }
+
+        Episode E17S5 = new Episode(null, 0, 0, 250); 
+        // Example to show that the average is different when creating an object with a highly different runtime
+        breakingBad.addEpisode(E17S5);
+
+        System.out.println(breakingBad.getAverageRuntime());
 
     }
 }
