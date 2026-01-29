@@ -9,6 +9,7 @@ public class TVSeries {
     private ArrayList<Episode> episodes = new ArrayList<>();
 
     private double averageRuntime;
+    private int numSeasons;
 
     public String getTitle() {return title;}
     public String getDescription() {return description;}
@@ -16,14 +17,27 @@ public class TVSeries {
     public ArrayList<Episode> getepisodes() {return episodes;}
 
     public double getAverageRuntime() {return averageRuntime;}
+    public int getNumSeasons() {return numSeasons;}
 
     public void setTitle(String title) {this.title = title;}
     public void setDescription(String description) {this.description = description;}
     public void setReleaseDate(LocalDate releaseDate) {this.releaseDate = releaseDate;}
 
+
     public void addEpisode(Episode episodeName) {
+        if (episodeName.getSeasonNumber() > (numSeasons + 1) || episodeName.getSeasonNumber() < 1) {
+            System.out.println("\nError: Season number invalid! Could be exceeding the number of season + 1, or an invalid integer!");
+            return;
+        }
+        
+        if (episodeName.getSeasonNumber() == (numSeasons + 1)){
+            System.out.println("\nNote: Season provided is one higher than numbers of seasons, new season added!");
+            numSeasons++;
+        }
+            
         episodes.add(episodeName);
         updateAverageRuntime();
+        
     }
     
     public void listEpisodes() {
@@ -82,11 +96,11 @@ public class TVSeries {
         }
     }
 
-
-    public TVSeries(String title, String description, LocalDate releaseDate, ArrayList<Episode> episodes) {
+    public TVSeries(String title, String description, LocalDate releaseDate, ArrayList<Episode> episodes, int numSeasons) {
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
         this.episodes = episodes;
+        this.numSeasons = numSeasons;
     }
 }

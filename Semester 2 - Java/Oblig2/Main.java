@@ -7,7 +7,7 @@ public class Main {
         Random rand = new Random();
         int min = 20, max = 30;
 
-        TVSeries breakingBad = new TVSeries("Breaking Bad", "Walter White is cool", LocalDate.of(2008, 1, 20), new ArrayList<>());
+        TVSeries breakingBad = new TVSeries("Breaking Bad", "Walter White is cool", LocalDate.of(2008, 1, 20), new ArrayList<>(), 5);
         String[][] titles = {
             { "Pilot", "Cat's in the bag", "And the Bag's in the River", "Cancer Man", "Gray Matter", "Crazy Handful of Nothing", "A No-Rough-Stuff-Type Deal" }, // S1
             { "Seven Thirty-Seven", "Grilled", "Bit by a Dead Bee", "Down", "Breakage", "Peekaboo", "Negro y Azul", "Better Call Saul", "4 Days Out", "Over", "Mandala", "Phoenix", "ABQ" }, // S2
@@ -33,8 +33,10 @@ public class Main {
 
         System.out.printf("%n%.2f", breakingBad.getAverageRuntime());
 
+        Episode E34S8 = new Episode("This will definitely break the function...", 34, 8,  rand.nextInt(max - min + 1)+min);
+        breakingBad.addEpisode(E34S8);
 
-
-
+        Episode E1S6 = new Episode("El Camino now streaming on Netflix!", 1, 6,  122);
+        breakingBad.addEpisode(E1S6);
     }
 }
