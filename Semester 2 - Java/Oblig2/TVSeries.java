@@ -24,12 +24,14 @@ public class TVSeries {
     public void setReleaseDate(LocalDate releaseDate) {this.releaseDate = releaseDate;}
 
 
-    public void addEpisode(Episode episodeName) {
+    public void addEpisode(Episode episodeName) { 
+        // To avoid errors or incorrect seasons we make sure that the input doesnt exceed the number of seasons nor go below 1.
         if (episodeName.getSeasonNumber() > (numSeasons + 1) || episodeName.getSeasonNumber() < 1) {
             System.out.println("\nError: Season number invalid! Could be exceeding the number of season + 1, or an invalid integer!");
-            return;
+            return; // To avoid many else-if's we can simply return the function without having to add anything more.
         }
         
+        // In other cases it will just notify the user based on the *correct* inputs.
         if (episodeName.getSeasonNumber() == (numSeasons + 1)){
             System.out.println("\nNote: Season provided is one higher than numbers of seasons, new season added!");
             numSeasons++;
@@ -59,7 +61,7 @@ public class TVSeries {
 
     public void fetchEpisode(String title) {
         for (Episode ep : episodes) {
-            if (ep.getTitle().equalsIgnoreCase(title.toLowerCase())) {
+            if (ep.getTitle().equalsIgnoreCase(title)) {
                 System.out.println(ep);
                 return;
             }
