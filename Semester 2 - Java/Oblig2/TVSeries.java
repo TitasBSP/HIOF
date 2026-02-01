@@ -59,6 +59,7 @@ public class TVSeries {
         + "\nNumber of episodes: " + episodes.size();
     }
 
+    // Based on the title in the episode object, we'll search for something that looks like something from our matrix array
     public void fetchEpisode(String title) {
         for (Episode ep : episodes) {
             if (ep.getTitle().equalsIgnoreCase(title)) {
@@ -79,6 +80,7 @@ public class TVSeries {
         return epsInSeason;
     }
  
+    // We use double here to ensure so that the average runtime doesn't incorrectly calculate nor floor / round-up so that we represent the number correctly.
     private double updateAverageRuntime() {
         int episodeAmount = 0;
         double totalRuntime = 0;
