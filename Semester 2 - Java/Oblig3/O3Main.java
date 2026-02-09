@@ -47,5 +47,11 @@ public class O3Main {
 
         Episode E1S6 = new Episode("El Camino now streaming on Netflix!", 1, 6,  122);
         breakingBad.addEpisode(E1S6);
+
+        Movie theDarkKnight = new Movie("The Dark Knight", 152);
+        Movie Garfield = new Movie("Garfield: The Movie", 80);
+
+        System.out.println(theDarkKnight.getTitle());
+        System.out.println(Garfield.getTitle());
     }
 }

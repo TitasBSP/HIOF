@@ -91,7 +91,7 @@ public class TVSeries {
 
         } else {
             for (Episode ep : episodes) {
-                totalRuntime += ep.getRuntime();
+                totalRuntime += ep.getRuntimeInMinutes();
                 episodeAmount++;
             } 
 

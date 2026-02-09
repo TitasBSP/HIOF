@@ -17,14 +17,15 @@ public class Episode extends Production {
     }
 
     public Episode(String title, int episodeNumber, int seasonNumber, int runtime) {
-        this.title = title;
+        super(title, runtime); // Note: Call super first in the constructor, in one line with all variables together
         this.episodeNumber = episodeNumber;
         this.seasonNumber = seasonNumber;
-        this.runtime = runtime;
     }
 
     public Episode(String title, int episodeNumber, int seasonNumber) {
-        this(title, episodeNumber, seasonNumber, 0);
+        super(title);
+        this.episodeNumber = episodeNumber;
+        this.seasonNumber = seasonNumber;
     }
 }
 
