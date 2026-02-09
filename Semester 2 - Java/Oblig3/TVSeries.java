@@ -100,6 +100,16 @@ public class TVSeries {
         }
     }
 
+    public ArrayList<Role> getCast() {
+        ArrayList<Role> cast = new ArrayList<>();
+
+        for (Episode ep : episodes) {
+            cast.addAll(ep.getRoles());
+        }
+
+        return cast;
+    }
+
     public TVSeries(String title, String description, LocalDate releaseDate, ArrayList<Episode> episodes, int numSeasons) {
         this.title = title;
         this.description = description;

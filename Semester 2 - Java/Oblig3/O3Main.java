@@ -36,6 +36,10 @@ public class O3Main {
 
         theDarkKnight.printAllRoles();
 
+        for (Role role : simpsons.getCast()) {
+            role.getFullRole();
+        }
+
 
 
     }

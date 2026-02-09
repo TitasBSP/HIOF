@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 public class Person { // For future reference: Right-click on the selected variable -> Source Action -> Generate getters / setters / constructor
     private String firstName;
     private String lastName;

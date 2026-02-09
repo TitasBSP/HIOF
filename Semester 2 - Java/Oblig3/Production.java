@@ -14,6 +14,7 @@ abstract public class Production {
     public String getDescription() {return description;}
     public LocalDate getReleaseDate() {return releaseDate;}
     public Person getDirector() {return director;}
+    public ArrayList<Role> getRoles() {return roles;}
 
     public void setTitle(String title) {this.title = title;}
     public void setRuntimeInMinutes(int runtimeInMinutes) {this.runtimeInMinutes = runtimeInMinutes;}
@@ -44,7 +45,7 @@ abstract public class Production {
                 + "\nDescription: " + description
                 + "\nRuntime: " + runtimeInMinutes
                 + "\nRelease date: " + releaseDate
-                + "\nDirector: " + director
+                + "\nDirector: " + director.getFullName()
                 + "\nRoles: " + roles;
     }
 
