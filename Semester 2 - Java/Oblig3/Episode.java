@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class Episode extends Production {
     private int episodeNumber;
     private int seasonNumber;
@@ -15,9 +18,9 @@ public class Episode extends Production {
                 + "\nSeason Number: " + seasonNumber
                 + "\nRuntime: " + super.getRuntimeInMinutes();
     }
-
-    public Episode(String title, int episodeNumber, int seasonNumber, int runtime) {
-        super(title, runtime); // Note: Call super first in the constructor, in one line with all variables together
+    
+    public Episode(String title, int episodeNumber, int seasonNumber, int runtime, String description, LocalDate releaseDate, Person director, ArrayList<Role> roles) {
+        super(title, description, runtime, releaseDate, director, roles); // Note: Call super first in the constructor, in one line with all variables together
         this.episodeNumber = episodeNumber;
         this.seasonNumber = seasonNumber;
     }
