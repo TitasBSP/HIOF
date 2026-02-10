@@ -16,6 +16,10 @@ public class Person { // For future reference: Right-click on the selected varia
 
     public String getFullName() {return firstName + ' ' + lastName;}
 
+    public void addAppearance() {
+        this.starredCount++;
+    }
+    
     @Override
     public String toString() {
         return "\nFirst Name: " + firstName

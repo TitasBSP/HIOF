@@ -1,37 +1,23 @@
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TVSeries {
-    private String title;
-    private String description;
-    private LocalDate releaseDate;
+public class TVSeries extends Production {
     private ArrayList<Episode> episodes = new ArrayList<>();
 
     private double averageRuntime;
     private int numSeasons;
 
-    public String getTitle() {return title;}
-    public String getDescription() {return description;}
-    public LocalDate getReleaseDate() {return releaseDate;}
-    public ArrayList<Episode> getepisodes() {return episodes;}
+    public ArrayList<Episode> getEpisodes() {return episodes;}
 
     public double getAverageRuntime() {return averageRuntime;}
     public int getNumSeasons() {return numSeasons;}
 
-    public void setTitle(String title) {this.title = title;}
-    public void setDescription(String description) {this.description = description;}
-    public void setReleaseDate(LocalDate releaseDate) {this.releaseDate = releaseDate;}
-
-
     public void addEpisode(Episode episodeName) { 
-        // To avoid errors or incorrect seasons we make sure that the input doesnt exceed the number of seasons nor go below 1.
         if (episodeName.getSeasonNumber() > (numSeasons + 1) || episodeName.getSeasonNumber() < 1) {
             System.out.println("\nError: Season number invalid! Could be exceeding the number of season + 1, or an invalid integer!");
-            return; // To avoid many else-if's we can simply return the function without having to add anything more.
+            return;
         }
         
-        // In other cases it will just notify the user based on the *correct* inputs.
         if (episodeName.getSeasonNumber() == (numSeasons + 1)){
             System.out.println("\nNote: Season provided is one higher than numbers of seasons, new season added!");
             numSeasons++;
@@ -39,7 +25,6 @@ public class TVSeries {
             
         episodes.add(episodeName);
         updateAverageRuntime();
-        
     }
     
     public void listEpisodes() {
@@ -53,13 +38,12 @@ public class TVSeries {
 
     @Override
     public String toString() {
-        return "\nTV Series Title: " + title 
-        + "\nDescription: " + description 
-        + "\nRelease date: " + releaseDate 
+        return "\nTV Series Title: " + getTitle() 
+        + "\nDescription: " + getDescription() 
+        + "\nRelease date: " + getReleaseDate() 
         + "\nNumber of episodes: " + episodes.size();
     }
 
-    // Based on the title in the episode object, we'll search for something that looks like something from our matrix array
     public void fetchEpisode(String title) {
         for (Episode ep : episodes) {
             if (ep.getTitle().equalsIgnoreCase(title)) {
@@ -80,7 +64,6 @@ public class TVSeries {
         return epsInSeason;
     }
  
-    // We use double here to ensure so that the average runtime doesn't incorrectly calculate nor floor / round-up so that we represent the number correctly.
     private double updateAverageRuntime() {
         int episodeAmount = 0;
         double totalRuntime = 0;
@@ -107,13 +90,39 @@ public class TVSeries {
             cast.addAll(ep.getRoles());
         }
 
-        return cast;
+        ArrayList<Role> filteredCast = new ArrayList<>();
+        for (Role role : cast) {
+            if (!filteredCast.contains(role)) {
+                filteredCast.add(role);
+            }
+        }
+
+        return filteredCast;
     }
 
+    public void calculateEpisodeNum() {
+        for (Episode ep : episodes) {
+            for (Role role : getCast())
+                if (ep.getRoles().contains(role)) {
+                    Person actor = role.getActor();
+                    actor.addAppearance();              
+            }
+        }
+        
+        for (Person actor : getActors()) {
+            if (episodes.contains(actor)) {
+                System.out.println(actor.getFullName() + " has starred: " + actor.getStarredCount() + " times.");
+            }
+        }
+    }
+
+
+
     public TVSeries(String title, String description, LocalDate releaseDate, ArrayList<Episode> episodes, int numSeasons) {
-        this.title = title;
-        this.description = description;
-        this.releaseDate = releaseDate;
+        super(title);
+        setDescription(description);
+        setReleaseDate(releaseDate);
+        setRoles(new ArrayList<>());
         this.episodes = episodes;
         this.numSeasons = numSeasons;
     }

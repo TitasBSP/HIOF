@@ -14,9 +14,24 @@ public class O3Main {
         Person joaquinPhoenix = new Person("Joaquin", "Phoenix", 0, 1982);
         Role joker = new Role("The", "Joker", joaquinPhoenix);
 
+        Person nancyCartwright = new Person("Nancy", "Cartwright", 0, 1980);
+        Role bart = new Role("Bart", "Simpson", nancyCartwright);
+
+        Person danielCastellaneta = new Person("Daniel", "Castellaneta", 0, 1979);
+        Role homer = new Role("Homer", "Simpson", danielCastellaneta);
+
+        Person julieKavner = new Person("Julie", "Kavner", 0, 1971);
+        Role marge = new Role("Marge", "Simpson", julieKavner);
+
         ArrayList<Role> rolesInTDK = new ArrayList<>();
         rolesInTDK.add(batman);
         rolesInTDK.add(joker);
+
+        ArrayList<Role> rolesInSimpsons = new ArrayList<>();
+        rolesInSimpsons.add(bart);
+        rolesInSimpsons.add(homer);
+        rolesInSimpsons.add(marge);
+        rolesInSimpsons.add(marge); // Checking duplicate handling
 
         TVSeries simpsons = new TVSeries("The Simpsons", "TBA", LocalDate.of(1989, 12, 17), new ArrayList<>(), 37);
 
@@ -36,9 +51,16 @@ public class O3Main {
 
         theDarkKnight.printAllRoles();
 
+        simpsonsE1S1.addToRoles(rolesInSimpsons);
+        simpsons.addEpisode(simpsonsE1S1);
+
         for (Role role : simpsons.getCast()) {
             role.getFullRole();
         }
+
+        simpsons.calculateEpisodeNum();
+
+
 
 
 

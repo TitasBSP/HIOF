@@ -8,6 +8,7 @@ abstract public class Production {
     private LocalDate releaseDate;
     private Person director;
     private ArrayList<Role> roles;
+    private ArrayList<Person> actors;
 
     public String getTitle() {return title;}
     public int getRuntimeInMinutes() {return runtimeInMinutes;}
@@ -15,6 +16,7 @@ abstract public class Production {
     public LocalDate getReleaseDate() {return releaseDate;}
     public Person getDirector() {return director;}
     public ArrayList<Role> getRoles() {return roles;}
+    public ArrayList<Person> getActors() {return actors;}
 
     public void setTitle(String title) {this.title = title;}
     public void setRuntimeInMinutes(int runtimeInMinutes) {this.runtimeInMinutes = runtimeInMinutes;}

@@ -12,7 +12,7 @@ public class Role {
     public void setActor(Person actor) {this.actor = actor;}
 
     public void getFullRole() {
-        System.out.println(roleFirstName + " " + roleLastName + " Starred by: " + actor.getFullName());
+        System.out.println(roleFirstName + " " + roleLastName + " starred by: " + actor.getFullName());
     }
 
     @Override
