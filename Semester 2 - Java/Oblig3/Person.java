@@ -19,12 +19,16 @@ public class Person { // For future reference: Right-click on the selected varia
     public void addAppearance() {
         this.starredCount++;
     }
+
+    public void resetAppearances() {
+        setStarredCount(0);
+    }
     
     @Override
     public String toString() {
         return "\nFirst Name: " + firstName
                 + "\nLast Name: " + lastName
-                + "\nStarred Count: " + starredCount
+                + "\nAppears in: " + starredCount + " episode(s)"
                 + "\nActive Since (Year): " + activeSinceYear;
     }
     

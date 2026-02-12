@@ -38,6 +38,7 @@ public class O3Main {
         Movie theDarkKnight = new Movie("The Dark Knight", "TBA", 152, LocalDate.of(2008,07, 25), christopherNolan, new ArrayList<>());
         Movie garfield = new Movie("Garfield: The Movie", "TBA", 80, LocalDate.of(2004, 06, 11), peterHewitt, new ArrayList<>());
         Episode simpsonsE1S1 = new Episode("Simpsons roasting on an open fire", 1, 1, 23, "TBA", LocalDate.of(1989, 12, 17), davidSilverman, new ArrayList<>());
+        Episode simpsonsE2S1 = new Episode("Bart The Genius", 2, 1, 23, "TBA", LocalDate.of(1990, 01, 14), davidSilverman, new ArrayList<>());
 
         System.out.println(theDarkKnight.getTitle());
         System.out.println(garfield.getTitle());
@@ -53,6 +54,10 @@ public class O3Main {
 
         simpsonsE1S1.addToRoles(rolesInSimpsons);
         simpsons.addEpisode(simpsonsE1S1);
+
+        simpsonsE2S1.addToRoles(marge);
+        simpsonsE2S1.addToRoles(homer);
+        simpsons.addEpisode(simpsonsE2S1);
 
         for (Role role : simpsons.getCast()) {
             role.getFullRole();
