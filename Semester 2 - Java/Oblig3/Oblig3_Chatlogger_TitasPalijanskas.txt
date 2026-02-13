@@ -5,3 +5,6 @@
 2.5: https://gemini.google.com/share/b6ca2899b0aa
 2.6: https://gemini.google.com/share/bbef78e6bc1b
 2.7: https://gemini.google.com/share/a9d8a0774280
+3.1: https://gemini.google.com/share/3ce4a1ec14cb
+3.2: https://gemini.google.com/share/6826dd64c082
+3.3: https://gemini.google.com/share/e1d36368a1fb

@@ -100,27 +100,27 @@ public class TVSeries extends Production {
         return filteredCast;
     }
 
-    public void calculateEpisodeNum() { // For every episode, and each role in a cast, if a role is in an episode, add appearance of that actor in a role
+    public void calculateEpisodeNum() { // For every episode, and each role in a cast, if a person is in an episode, add appearance of that actor in a list
         for (Role role : getCast()) {
             role.getActor().resetAppearances();
         }
-
-        ArrayList<Role> rolesPlayed = new ArrayList<>();
         
         for (Episode ep : episodes) {
+            ArrayList<Person> peoplePlayed = new ArrayList<>();
             for (Role role : ep.getRoles()) {
-                if (!rolesPlayed.contains(role)) {
-                    Person actor = role.getActor();
+                Person actor = role.getActor();
+                if (!peoplePlayed.contains(actor)) {
                     actor.addAppearance();     
+                    peoplePlayed.add(actor);
                 }
             }
         }
-        
+
         for (Role role : getCast()) {
             Person actor = role.getActor();
             System.out.println("\n" + actor.getFullName() + " has starred: " + actor.getStarredCount() + " time(s).");
         }
-    }
+    }   
 
 
 
