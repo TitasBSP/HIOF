@@ -83,7 +83,7 @@ public class TVSeries extends Production {
         }
     }
 
-    public ArrayList<Role> getCast() {
+    public ArrayList<Role> getCast() { // 2.7 og 3.1
         ArrayList<Role> cast = new ArrayList<>();
 
         for (Episode ep : episodes) {
@@ -101,7 +101,7 @@ public class TVSeries extends Production {
     }
 
     public void calculateEpisodeNum() { // For every episode, and each role in a cast, if a person is in an episode, add appearance of that actor in a list
-        for (Role role : getCast()) {
+        for (Role role : getCast()) { // 3.2
             role.getActor().resetAppearances();
         }
         

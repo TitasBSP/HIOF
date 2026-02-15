@@ -1,11 +1,13 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+// 2.1
+
 abstract public class Production {
     private String title;
     private String description;
     private int runtimeInMinutes;
-    private LocalDate releaseDate;
+    private LocalDate releaseDate; // 2.3
     private Person director;
     private ArrayList<Role> roles;
     private ArrayList<Person> actors;
