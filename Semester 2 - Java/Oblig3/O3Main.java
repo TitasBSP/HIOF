@@ -9,9 +9,17 @@ public class O3Main {
         Random rand = new Random(); 
         int min = 34, max = 45; 
 
-        // Starting date, pilot time -> Ending date, current time
-        // We want to make it so that season is Delta of Years (Current year - 1965)
-
+        /* 3.3:
+            The main logic here begins by defining starting and ending dates in a dynamic way which generates dates up to the present day
+            instead of generation a "certain" amount of episodes.
+            
+            To ensure that the first year (which i struggled with) has a different amount of days than the others is checking if the amount of
+            seasons corresponds with the starting season in the loop, and later on correctly changing to the amount of days in a given year,
+            we use toEpochDay to count leap years correctly and so on.
+            
+            Otherwise the logic is pretty straight forward. We check if a day is a weekend, and if not then we run the episode object creation,
+            but even if the if-block is run or not, we increment the starting date so that the dates for the episodes stay correct.
+        */
         LocalDate pilotDate = LocalDate.of(1965, 11, 8);
         LocalDate currentDate = LocalDate.now();
         LocalDate startingDate = pilotDate;
@@ -25,10 +33,10 @@ public class O3Main {
             int daysInYear;
 
             if (season == 0) {
-                startingDate = pilotDate;  // first season starts at pilot date
+                startingDate = pilotDate;
                 daysInYear = (int) (LocalDate.of(pilotDate.getYear(), 12, 31).toEpochDay() - startingDate.toEpochDay() + 1);
             } else {
-                startingDate = LocalDate.of(pilotDate.getYear() + season, 1, 1); // others start Jan 1
+                startingDate = LocalDate.of(pilotDate.getYear() + season, 1, 1);
                 daysInYear = Year.of(startingDate.getYear()).length();
             }
 
@@ -39,8 +47,6 @@ public class O3Main {
                     Episode episode = new Episode("Episode " + (epCounter), epCounter, season + 1, rand.nextInt(max - min + 1)+min, "It lasts a while...", pilotDate, startingDate, josephBehar, new ArrayList<>());
                     doul.addEpisode(episode);
                     epCounter++;
-                } else {
-   
                 }
 
                 startingDate = startingDate.plusDays(1);

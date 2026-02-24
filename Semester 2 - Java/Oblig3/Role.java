@@ -1,3 +1,5 @@
+// 2.5
+
 public class Role {
     private String roleFirstName;
     private String roleLastName;
@@ -15,7 +17,7 @@ public class Role {
         System.out.println(roleFirstName + " " + roleLastName + " starred by: " + actor.getFullName());
     }
 
-    @Override
+    @Override // 2.6
     public String toString() {
         return "\nFirst Name of Role: " + roleFirstName
                 + "\nLast Name of Role: " + roleLastName
