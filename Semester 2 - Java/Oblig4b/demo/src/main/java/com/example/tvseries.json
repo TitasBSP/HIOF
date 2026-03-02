@@ -1,0 +1,49 @@
+[ {
+  "title" : "Stranger Things",
+  "description" : "A group of kids uncover supernatural mysteries in their small town.",
+  "runtimeInMinutes" : 0,
+  "releaseDate" : "2016-07-15",
+  "director" : null,
+  "roles" : [ ],
+  "actors" : null,
+  "episodes" : [ ],
+  "averageRuntime" : 0.0,
+  "numSeasons" : 4,
+  "cast" : [ ]
+}, {
+  "title" : "Game of Thrones",
+  "description" : "Nine noble families fight for control over the lands of Westeros.",
+  "runtimeInMinutes" : 0,
+  "releaseDate" : "2011-04-17",
+  "director" : null,
+  "roles" : [ ],
+  "actors" : null,
+  "episodes" : [ ],
+  "averageRuntime" : 0.0,
+  "numSeasons" : 8,
+  "cast" : [ ]
+}, {
+  "title" : "The Office",
+  "description" : "A mockumentary on a group of typical office workers.",
+  "runtimeInMinutes" : 0,
+  "releaseDate" : "2005-03-24",
+  "director" : null,
+  "roles" : [ ],
+  "actors" : null,
+  "episodes" : [ ],
+  "averageRuntime" : 0.0,
+  "numSeasons" : 9,
+  "cast" : [ ]
+}, {
+  "title" : "The Mandalorian",
+  "description" : "A lone bounty hunter travels the outer reaches of the galaxy.",
+  "runtimeInMinutes" : 0,
+  "releaseDate" : "2019-11-12",
+  "director" : null,
+  "roles" : [ ],
+  "actors" : null,
+  "episodes" : [ ],
+  "averageRuntime" : 0.0,
+  "numSeasons" : 3,
+  "cast" : [ ]
+} ]

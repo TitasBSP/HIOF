@@ -1,11 +1,11 @@
 package com.example;
-import java.io.File;
-import java.io.IOException; 
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.BufferedReader;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TVSeriesCSVRepository implements TVSeriesRepository {
     private final File theFile;
@@ -29,12 +29,12 @@ public class TVSeriesCSVRepository implements TVSeriesRepository {
             e.printStackTrace();
         }
 
-        try (FileWriter fileManager = new FileWriter(theFile, true);){ // TRY-Block for writing contents of the TVSeries list. We choose to separate them for the sake of readability and knowing which block catches an exception.
+        /* TRY-Block for writing contents of the TVSeries list. 
+            We choose to separate them for the sake of readability and knowing which block catches an exception. */
+
+        try (FileWriter fileManager = new FileWriter(theFile, true);){ 
             for (TVSeries series : listOfTVSeries) {
-                String details = 
-                                   series.getTitle() + separator
-                                +  series.getDescription() + separator
-                                +  series.getReleaseDate().getYear() + separator + series.getReleaseDate().getMonthValue() + separator + series.getReleaseDate().getDayOfMonth() + separator;
+                String details = series.getTitle() + separator + series.getDescription() + separator + series.getReleaseDate().getYear() + separator + series.getReleaseDate().getMonthValue() + separator + series.getReleaseDate().getDayOfMonth() + separator;
                 fileManager.write(details + "\n");
             }
         } catch (Exception e) {
@@ -50,8 +50,8 @@ public class TVSeriesCSVRepository implements TVSeriesRepository {
         try (BufferedReader buffRead = new BufferedReader(new FileReader(theFile))) {
             String line;
 
-            while ((line = buffRead.readLine()) != null) {
-                String[] values = line.split(separator);
+            while ((line = buffRead.readLine()) != null) { // Kjører helt til det ikke er rader med tegn
+                String[] values = line.split(separator); // Lagrer de forskjellige verdiene basert på hvor de ligger i arrayen.
                 
                 String title = values[0];
                 String description = values[1];
@@ -59,32 +59,21 @@ public class TVSeriesCSVRepository implements TVSeriesRepository {
                 int relMonth = Integer.parseInt(values[3]);
                 int relDay = Integer.parseInt(values[4]);
 
-                TVSeries series = new TVSeries(title, description, LocalDate.of(relYear, relMonth, relDay), null, 0);
+                // Vi bruker variablene vi nettopp opprettet for å putte sammen objektet.
+                TVSeries series = new TVSeries(title, description, LocalDate.of(relYear, relMonth, relDay), null, 0); 
                 objects.add(series);
                 
             }
 
         } catch (Exception e) {
             System.err.println("Something went wrong when reading from file.");
+            e.printStackTrace(); 
         }
-
         return objects;
     }
 
-    /*
-    Todo:
-
-    In method:
-    - Grabs .csv file and read with bufferedreader
-    - Return list of TVSeries objects
-
-    In main:
-    - Use the method on the file we made in the last task
-    - Print a description of the object to show that the method works
-    */
-
     @Override
-    public TVSeries getTVSeriesByTitle(String title) {
+    public TVSeries getTVSeriesByTitle(String title) { // Grab the data from previous method, loop and search through it.
         
         ArrayList<TVSeries> objects = getAllTVSeries();
         for (TVSeries series : objects) {
@@ -92,9 +81,9 @@ public class TVSeriesCSVRepository implements TVSeriesRepository {
                 return series;
             }
         }
+
         return null;
     }
 
 }
 
-/* For next time, create a list of tvseries, see if the methods work or not. Troubleshoot if so! */
